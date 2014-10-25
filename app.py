@@ -13,6 +13,18 @@ app.debug = True
 db = SQLAlchemy(app)
 
 
+class NewPersonObservable:
+    observers = []
+    @classmethod
+    def add_observer(cls, observer):
+        cls.observers.append(observer)
+
+    @classmethod
+    def notify_all(cls, person):
+        for obs in cls.observers:
+            obs.notify_new_person(person)
+
+
 @app.route('/')
 def hello_world():
     from models import Person
@@ -55,6 +67,10 @@ def person_add():
         db.session.add(person)
         db.session.commit()
         db.session.refresh(person)
+
+        # сообщить всем желающим о событии создания нового владельца машины
+        NewPersonObservable.notify_all(person)
+
         return redirect('/persons/{}/'.format(person.id))
     else:
         return render_template('person_add.html')
