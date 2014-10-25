@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <meta charset="UTF-8">
+    <title>All car owners</title>
 </head>
 <body>
+<a href="/persons/add/">Add new car owner</a>
 {% for person in people %}
-<h1>Hello, {{ person.name }}!</h1>
+    <h1>Hello, <a href="/persons/{{ person.id }}/">{{ person.name }}</a>!</h1>
     {% for car in person.cars %}
         Owns: {{ car.name }}, value: {{ car.price }}<br/>
     {% endfor %}
 {% endfor %}
-<a href="/sum/">Sum</a>
-<a href="/persons/">Persons</a>
 </body>
 </html>

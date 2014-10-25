@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1>Hello, {{ person.name }}!</h1>
+    {% for car in person.cars %}
+        Owns: {{ car.name }}, value: {{ car.price }}<br/>
+    {% endfor %}
+    <a href="/persons/">All people</a>
+</body>
+</html>
