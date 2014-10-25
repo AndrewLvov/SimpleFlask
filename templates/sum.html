@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Sum</h1>
+<form method="post" action="">
+    <label for="a">A</label><input id="a" type="text" name="a" value="{{ a }}"/>
+    <label for="b">B</label><input id="b" type="text" name="b" value="{{ b }}"/>
+    <input type="submit" name="submit" value="Submit"/>
+</form>
+{% if total  %}
+    <h1>Total: {{ total }}</h1>
+{% endif %}
+</body>
+</html>
