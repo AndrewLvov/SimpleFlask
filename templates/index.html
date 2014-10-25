@@ -5,7 +5,12 @@
     <meta charset="UTF-8">
 </head>
 <body>
-<h1>Hello, {{ name }}!</h1>
+{% for person in people %}
+<h1>Hello, {{ person.name }}!</h1>
+    {% for car in person.cars %}
+        Owns: {{ car.name }}, value: {{ car.price }}<br/>
+    {% endfor %}
+{% endfor %}
 <a href="/sum/">Sum</a>
 </body>
 </html>

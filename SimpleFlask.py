@@ -1,14 +1,37 @@
+
+import os
 from flask import Flask, render_template, request
+from flask.ext.sqlalchemy import SQLAlchemy
 
 from random import randrange
 
 app = Flask(__name__)
+basedir = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = \
+    'sqlite:///' + os.path.join(basedir, 'data.db')
+# app.debug = True
+db = SQLAlchemy(app)
+
+
+class Person(db.Model):
+    __tablename__ = 'persons'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text())
+
+
+class Car(db.Model):
+    __tablename__ = "cars"
+    name = db.Column(db.Text, primary_key=True)
+    price = db.Column(db.Integer)
+    owner = db.Column(db.Integer, db.ForeignKey('persons.id'))
+    owner_p = db.relationship('Person', backref=db.backref('cars'))
+
 
 @app.route('/')
 def hello_world():
-    numbers = [randrange(0, 100) for _ in range(10)]
+    people = Person.query.all()
     return render_template('index.html', name="Кот Васька",
-                           numbers=numbers)
+                           people=people)
 
 
 @app.route('/sum/', methods=['GET', 'POST'])
